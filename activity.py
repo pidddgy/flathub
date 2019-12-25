@@ -11,7 +11,8 @@ from gi.repository import GLib
 from gi.repository import Gdk
 from gi.repository import Gtk
 
-from sugar3.activity import activity
+from sugarapp.widgets import SugarCompatibleActivity
+
 from sugar3.presence.presenceservice import PresenceService
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
@@ -27,18 +28,13 @@ from textchannel import TextChannelWrapper
 import game
 
 
-class MazeActivity(activity.Activity):
-
+class MazeActivity(SugarCompatibleActivity):
     def __init__(self, handle):
         """Set up the Maze activity."""
-        activity.Activity.__init__(self, handle)
+        SugarCompatibleActivity.__init__(self, handle)
         self._busy_count = 0
         self._unbusy_idle_sid = None
-
-        if 'state' in self.metadata:
-            self.state = json.loads(self.metadata['state'])
-        else:
-            self.state = None
+        self.state = None
 
         self.build_toolbar()
 
